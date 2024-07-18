@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('proyectos', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre')->unique();
-            $table->timestamps();
+        Schema::table('proyectos', function (Blueprint $table) {
+            //
+            $table->foreignId('departamento_id')->constrained('parametro_detalles');
+            $table->foreignId('ciudad_id')->constrained('parametro_detalles');
         });
     }
 
@@ -23,6 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('proyectos');
+        Schema::table('proyectos', function (Blueprint $table) {
+            //
+        });
     }
 };

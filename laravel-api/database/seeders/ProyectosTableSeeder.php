@@ -15,6 +15,6 @@ class ProyectosTableSeeder extends Seeder
     public function run(): void
     {
         //
-        Proyecto::factory()->count(2)->create();
+        // Proyecto::factory()->count(2)->create();
     }
 }

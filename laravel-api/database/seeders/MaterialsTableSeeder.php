@@ -15,6 +15,6 @@ class MaterialsTableSeeder extends Seeder
     public function run(): void
     {
         //
-        Material::factory()->count(50)->create();
+        // Material::factory()->count(5)->create();
     }
 }

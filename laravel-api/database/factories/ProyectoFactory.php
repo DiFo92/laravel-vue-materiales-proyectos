@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\ParametroDetalle;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Proyecto>
@@ -18,8 +19,8 @@ class ProyectoFactory extends Factory
     {
         return [
             'nombre' => $this->faker->unique()->word,
-            'departamento' => $this->faker->unique()->word,
-            'ciudad' => $this->faker->unique()->word,
+            'departamento_id' => ParametroDetalle::factory(),
+            'ciudad_id' => ParametroDetalle::factory(),
         ];
     }
 }
