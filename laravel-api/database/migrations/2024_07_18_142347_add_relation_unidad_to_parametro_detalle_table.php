@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('materials', function (Blueprint $table) {
-            $table->id();
-             $table->string('codigo')->unique();
-            $table->string('descripcion');
-            // $table->string('unidad');
-            $table->decimal('precio', 8, 2);
-            $table->timestamps();
+        Schema::table('materials', function (Blueprint $table) {
+            //
+            $table->foreignId('unidad_id')->constrained('parametro_detalles');
         });
     }
 
@@ -26,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('materials');
+        Schema::table('materials', function (Blueprint $table) {
+            //
+        });
     }
 };
