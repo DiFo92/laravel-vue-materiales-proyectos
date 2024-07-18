@@ -9,6 +9,6 @@ use App\Http\Controllers\ProyectoMaterialController;
 //     return view('welcome');
 // });
 
-Route::apiResource('materials', MaterialController::class);
-Route::apiResource('proyectos', ProyectoController::class);
-Route::apiResource('proyectos-material', ProyectoMaterialController::class);
+// Route::apiResource('materials', MaterialController::class);
+// Route::apiResource('proyectos', ProyectoController::class);
+// Route::apiResource('proyectos-material', ProyectoMaterialController::class);
