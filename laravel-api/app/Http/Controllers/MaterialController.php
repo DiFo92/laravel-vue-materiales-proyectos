@@ -42,15 +42,17 @@ class MaterialController extends Controller
     public function store(StoreMaterialRequest $request)
     {
         $details =[
-            'name' => $request->name,
-            'details' => $request->details
+            'codigo' => $request->codigo,
+            'descripcion' => $request->descripcion,
+            'unidad_id' => $request->unidad_id,
+            'precio' => $request->precio
         ];
         DB::beginTransaction();
         try{
              $material = $this->materialRepositoryInterface->store($details);
 
              DB::commit();
-             return ApiResponseClass::sendResponse(new MaterialResource($material),'Material Create Successful',201);
+             return ApiResponseClass::sendResponse(new MaterialResource($material),'Material Creado Correctamente',201);
 
         }catch(\Exception $ex){
             return ApiResponseClass::rollback($ex);
@@ -81,15 +83,17 @@ class MaterialController extends Controller
     public function update(UpdateMaterialRequest $request, $id)
     {
         $updateDetails =[
-            'name' => $request->name,
-            'details' => $request->details
+            'codigo' => $request->codigo,
+            'descripcion' => $request->descripcion,
+            'unidad_id' => $request->unidad_id,
+            'precio' => $request->precio
         ];
         DB::beginTransaction();
         try{
              $material = $this->materialRepositoryInterface->update($updateDetails,$id);
 
              DB::commit();
-             return ApiResponseClass::sendResponse('Material Update Successful','',201);
+             return ApiResponseClass::sendResponse('Material Actualizado Correctamente','',201);
 
         }catch(\Exception $ex){
             return ApiResponseClass::rollback($ex);
@@ -103,6 +107,6 @@ class MaterialController extends Controller
     {
          $this->materialRepositoryInterface->delete($id);
 
-        return ApiResponseClass::sendResponse('Material Delete Successful','',204);
+        return ApiResponseClass::sendResponse('Material Eliminado Correctamente','',204);
     }
 }
