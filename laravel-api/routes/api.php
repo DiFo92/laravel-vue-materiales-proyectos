@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\ProyectoController;
+use App\Http\Controllers\ProyectoMaterialController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -11,3 +12,4 @@ Route::get('/user', function (Request $request) {
 
 Route::apiResource('/materials',MaterialController::class);
 Route::apiResource('/proyects',ProyectoController::class);
+Route::apiResource('/proyects-materials',ProyectoMaterialController::class);

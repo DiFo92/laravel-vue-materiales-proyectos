@@ -20,6 +20,10 @@ class AppServiceProvider extends ServiceProvider
             'App\Interfaces\ProyectoRepositoryInterface',
             'App\Repositories\ProyectoRepository'
         );
+        $this->app->bind(
+            'App\Interfaces\ProyectoMaterialRepositoryInterface',
+            'App\Repositories\ProyectoMaterialRepository'
+        );
     }
 
     /**

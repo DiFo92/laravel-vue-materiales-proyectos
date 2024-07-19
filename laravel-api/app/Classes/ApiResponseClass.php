@@ -14,12 +14,12 @@ class ApiResponseClass
         //
     }
 
-    public static function rollback($e, $message ="Something went wrong! Process not completed"){
+    public static function rollback($e, $message ="A ocurrido algo, proceso no completado"){
         DB::rollBack();
         self::throw($e, $message);
     }
 
-    public static function throw($e, $message ="Something went wrong! Process not completed"){
+    public static function throw($e, $message ="A ocurrido algo, proceso no completado"){
         Log::info($e);
         throw new HttpResponseException(response()->json(["message"=> $message], 500));
     }

@@ -14,9 +14,7 @@ class RepositoryServiceProvider extends ServiceProvider
         //
         $this->app->bind(MaterialRepositoryInterface::class,MaterialReposiotry::class);
         $this->app->bind(ProyectoRepositoryInterface::class,ProyectoReposiotry::class);
-        // $this->app->bind(
-        //     'App\Interfaces\MaterialRepositoryInterface',
-        //     'App\Repositories\MaterialRepository');
+        $this->app->bind(ProyectoMaterialRepositoryInterface::class,ProyectoMaterialReposiotry::class);
 
     }
 
