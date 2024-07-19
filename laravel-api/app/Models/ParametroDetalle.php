@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class ParametroDetalle extends Model
 {
     use HasFactory;
+    protected $fillable = ['descripcion', 'valor', 'parametro_id'];
 }
