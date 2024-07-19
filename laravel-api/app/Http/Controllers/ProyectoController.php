@@ -2,18 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Proyecto;
-
+use App\Http\Requests\StoreProyectoRequest;
+use App\Http\Requests\UpdateProyectoRequest;
+use App\Interfaces\ProyectoRepositoryInterface;
+use App\Classes\ApiResponseClass;
+use App\Http\Resources\ProyectoResource;
+use Illuminate\Support\Facades\DB;
 class ProyectoController extends Controller
 {
+
+    private ProyectoRepositoryInterface $proyectoRepositoryInterface;
+
+    public function __construct(ProyectoRepositoryInterface $proyectoRepositoryInterface)
+    {
+        $this->proyectoRepositoryInterface = $proyectoRepositoryInterface;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-        return Proyecto::all();
+        $data = $this->proyectoRepositoryInterface->index();
+
+        return ApiResponseClass::sendResponse(ProyectoResource::collection($data),'',200);
     }
 
     /**
@@ -27,34 +39,39 @@ class ProyectoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreProyectoRequest $request)
     {
-        //
-        $validatedData = $request->validate([
-            'nombre' => 'required|unique:proyectos|max:255',
-            'departamento' => 'required',
-            'ciudad' => 'required',
-        ]);
+        $details =[
+            'nombre' => $request->nombre,
+            'departamento_id' => $request->departamento_id,
+            'ciudad_id' => $request->ciudad_id,
+        ];
+        DB::beginTransaction();
+        try{
+             $proyecto = $this->proyectoRepositoryInterface->store($details);
 
-        $proyecto = Proyecto::create($validatedData);
+             DB::commit();
+             return ApiResponseClass::sendResponse(new ProyectoResource($proyecto),'Proyecto Creado Correctamente',201);
 
-        return response()->json($proyecto, 201);
+        }catch(\Exception $ex){
+            return ApiResponseClass::rollback($ex);
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
-        return Proyecto::findOrFail($id);
+        $proyecto = $this->proyectoRepositoryInterface->getById($id);
 
+        return ApiResponseClass::sendResponse(new ProyectoResource($proyecto),'',200);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Proyecto $proyecto)
     {
         //
     }
@@ -62,31 +79,32 @@ class ProyectoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateProyectoRequest $request, $id)
     {
-        //
-        $proyecto = Proyecto::findOrFail($id);
+        $updateDetails =[
+            'nombre' => $request->nombre,
+            'departamento_id' => $request->departamento_id,
+            'ciudad_id' => $request->ciudad_id,
+        ];
+        DB::beginTransaction();
+        try{
+             $proyecto = $this->proyectoRepositoryInterface->update($updateDetails,$id);
 
-        $validatedData = $request->validate([
-            'nombre' => 'required|max:255|unique:proyectos,nombre,' . $proyecto->id,
-            'departamento' => 'required',
-            'ciudad' => 'required',
-        ]);
+             DB::commit();
+             return ApiResponseClass::sendResponse('Proyecto Actualizado Correctamente','',201);
 
-        $proyecto->update($validatedData);
-
-        return response()->json($proyecto, 200);
+        }catch(\Exception $ex){
+            return ApiResponseClass::rollback($ex);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
-        $proyecto = Proyecto::findOrFail($id);
-        $proyecto->delete();
+         $this->proyectoRepositoryInterface->delete($id);
 
-        return response()->json(null, 204);
+        return ApiResponseClass::sendResponse('Proyecto Eliminado Correctamente','',204);
     }
 }

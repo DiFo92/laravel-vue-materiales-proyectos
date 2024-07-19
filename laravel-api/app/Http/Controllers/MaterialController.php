@@ -2,19 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Material;
-
-
+use App\Http\Requests\StoreMaterialRequest;
+use App\Http\Requests\UpdateMaterialRequest;
+use App\Interfaces\MaterialRepositoryInterface;
+use App\Classes\ApiResponseClass;
+use App\Http\Resources\MaterialResource;
+use Illuminate\Support\Facades\DB;
 class MaterialController extends Controller
 {
+
+    private MaterialRepositoryInterface $materialRepositoryInterface;
+
+    public function __construct(MaterialRepositoryInterface $materialRepositoryInterface)
+    {
+        $this->materialRepositoryInterface = $materialRepositoryInterface;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-        return Material::all();
+        $data = $this->materialRepositoryInterface->index();
+
+        return ApiResponseClass::sendResponse(MaterialResource::collection($data),'',200);
     }
 
     /**
@@ -28,34 +39,40 @@ class MaterialController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreMaterialRequest $request)
     {
-        //
-         $validatedData = $request->validate([
-            'codigo' => 'required|unique:materials|max:255',
-            'descripcion' => 'required',
-            'unidad' => 'required',
-            'precio' => 'required|numeric',
-        ]);
+        $details =[
+            'codigo' => $request->codigo,
+            'descripcion' => $request->descripcion,
+            'unidad_id' => $request->unidad_id,
+            'precio' => $request->precio
+        ];
+        DB::beginTransaction();
+        try{
+             $material = $this->materialRepositoryInterface->store($details);
 
-        $material = Material::create($validatedData);
+             DB::commit();
+             return ApiResponseClass::sendResponse(new MaterialResource($material),'Material Creado Correctamente',201);
 
-        return response()->json($material, 201);
+        }catch(\Exception $ex){
+            return ApiResponseClass::rollback($ex);
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
-        return Material::findOrFail($id);
+        $material = $this->materialRepositoryInterface->getById($id);
+
+        return ApiResponseClass::sendResponse(new MaterialResource($material),'',200);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Material $material)
     {
         //
     }
@@ -63,28 +80,33 @@ class MaterialController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateMaterialRequest $request, $id)
     {
-        //
-        $material = Material::findOrFail($id);
+        $updateDetails =[
+            'codigo' => $request->codigo,
+            'descripcion' => $request->descripcion,
+            'unidad_id' => $request->unidad_id,
+            'precio' => $request->precio
+        ];
+        DB::beginTransaction();
+        try{
+             $material = $this->materialRepositoryInterface->update($updateDetails,$id);
 
-        $validatedData = $request->validate([
-            'codigo' => 'required|max:255|unique:materials,codigo,' . $material->id,
-            'descripcion' => 'required',
-            'unidad' => 'required',
-            'precio' => 'required|numeric',
-        ]);
+             DB::commit();
+             return ApiResponseClass::sendResponse('Material Actualizado Correctamente','',201);
+
+        }catch(\Exception $ex){
+            return ApiResponseClass::rollback($ex);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
-        $material = Material::findOrFail($id);
-        $material->delete();
+         $this->materialRepositoryInterface->delete($id);
 
-        return response()->json(null, 204);
+        return ApiResponseClass::sendResponse('Material Eliminado Correctamente','',204);
     }
 }

@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('proyectos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre')->unique();
-            $table->string('departamento');
-            $table->string('ciudad');
             $table->timestamps();
         });
     }

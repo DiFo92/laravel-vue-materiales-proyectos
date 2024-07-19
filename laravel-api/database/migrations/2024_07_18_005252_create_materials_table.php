@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('materials', function (Blueprint $table) {
             $table->id();
-             $table->string('codigo')->unique();
+            $table->string('codigo')->unique();
             $table->string('descripcion');
-            $table->string('unidad');
             $table->decimal('precio', 8, 2);
             $table->timestamps();
         });
