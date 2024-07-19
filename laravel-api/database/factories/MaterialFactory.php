@@ -19,7 +19,7 @@ class MaterialFactory extends Factory
         return [
             'codigo' => $this->faker->unique()->word,
             'descripcion' => $this->faker->sentence,
-            'unidad' => $this->faker->randomElement(['m2', 'und', 'kg']),
+            'unidad_id' => $this->faker->randomElement(['m2', 'und', 'kg']),
             'precio' => $this->faker->randomFloat(2, 10, 1000),
         ];
     }
