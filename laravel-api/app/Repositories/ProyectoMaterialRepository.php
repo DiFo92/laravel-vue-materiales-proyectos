@@ -21,7 +21,15 @@ class ProyectoMaterialRepository implements ProyectoMaterialRepositoryInterface
     }
 
     public function store(array $data){
-       return ProyectoMaterial::create($data);
+        // Verificar unicidad
+        $exists = ProyectoMaterial::where('material_id', $data['material_id'])
+                          ->where('proyecto_id', $data['proyecto_id'])
+                          ->exists();
+
+        if ($exists) {
+            return response()->json(['error' => 'El material con este código y descripción ya existe.'], 422);
+        }
+        return ProyectoMaterial::create($data);
     }
 
     public function update(array $data,$id){
