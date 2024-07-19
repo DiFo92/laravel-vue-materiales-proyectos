@@ -14,9 +14,12 @@ class AppServiceProvider extends ServiceProvider
         //
         $this->app->bind(
             'App\Interfaces\MaterialRepositoryInterface',
-            'App\Repositories\MaterialRepository');
-        // $this->app->register(RepositoryServiceProvider::class);
-        // $this->app->bind(MaterialRepositoryInterface::class,MaterialReposiotry::class);
+            'App\Repositories\MaterialRepository'
+        );
+        $this->app->bind(
+            'App\Interfaces\ProyectoRepositoryInterface',
+            'App\Repositories\ProyectoRepository'
+        );
     }
 
     /**
