@@ -11,8 +11,20 @@
             <v-card-text>
               <v-form ref="form">
                 <v-text-field v-model="formData.nombre" label="Nombre" required></v-text-field>
-                <v-text-field v-model="formData.departamento_id" label="Departamento" required></v-text-field>
-                <v-text-field v-model="formData.ciudad_id" label="Ciudad" required></v-text-field>
+                <v-select
+                label="Departamento"
+                :items="itemsDepartamento"
+                item-title="descripcion"
+                item-value="id"
+                v-model="formData.departamento_id"
+                ></v-select>
+                <v-select
+                label="Ciudad"
+                :items="itemsCiudad"
+                item-title="descripcion"
+                item-value="id"
+                v-model="formData.ciudad_id"
+                ></v-select>
               </v-form>
             </v-card-text>
             <v-card-actions>
@@ -29,6 +41,12 @@
               <v-divider class="mx-4" inset vertical></v-divider>
               <v-spacer></v-spacer>
             </v-toolbar>
+          </template>
+          <template v-slot:item.departamento_id="{ item }">
+            {{ getTextDepartamento(item.departamento_id) }}
+          </template>
+          <template v-slot:item.ciudad_id="{ item }">
+            {{ getTextCiudad(item.ciudad_id) }}
           </template>
           <template v-slot:item.actions="{ item }">
             <v-icon small class="mr-2" @click="editProyecto(item)">mdi-pencil</v-icon>
@@ -47,6 +65,8 @@ export default {
     return {
       dialog: false,
       proyects: [],
+      itemsDepartamento: [],
+      itemsCiudad: [],
       headers: [
         { text: 'Nombre', value: 'nombre' },
         { text: 'Departamento', value: 'departamento_id' },
@@ -55,9 +75,10 @@ export default {
       ],
       formData: {
         id: null,
-        codigo: '',
-        descripcion: '',
-        precio: ''
+        nombre: '',
+        departamento_id: null,
+        ciudad_id: null
+
       }
     }
   },
@@ -67,6 +88,15 @@ export default {
       const response = await axios.get('/proyects');
       console.log(response.data)
       this.proyects = response.data.data;
+    },
+    async fetchDetailParameter() {
+      const parameterDpto = 1;
+      const response1 = await axios.get(`parametro-detalle/${parameterDpto}`);
+      this.itemsDepartamento = response1.data;
+
+      let parameterCity = 2;
+      const response = await axios.get(`parametro-detalle/${parameterCity}`);
+      this.itemsCiudad = response.data
     },
     openDialog() {
       this.formData = { id: null, name: '', quantity: '' };
@@ -88,10 +118,19 @@ export default {
     async deleteProyecto(id) {
       await axios.delete(`/proyects/${id}`);
       this.fetchProyectos();
+    },
+    getTextDepartamento(id){
+      const detailParameter = this.itemsDepartamento.find(item => item.id == id);
+      return detailParameter ? detailParameter.descripcion : '';
+    },
+    getTextCiudad(id){
+      const detailParameter = this.itemsCiudad.find(item => item.id == id);
+      return detailParameter ? detailParameter.descripcion : '';
     }
   },
   mounted() {
     this.fetchProyectos();
+    this.fetchDetailParameter();
   }
 }
 </script>
