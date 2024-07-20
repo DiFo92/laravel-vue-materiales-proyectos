@@ -23,15 +23,15 @@ Crear .env en laradock para laravel
 
 Editar las siguientes variables de entorno de laradock para que se conecte a base de datos mysql:
 
-`#########################
-APP_CODE_PATH_HOST=../laravel-api/
-#########################
-MARIADB_VERSION=latest
-MARIADB_DATABASE=default
-MARIADB_USER=default
-MARIADB_PASSWORD=secret
-MARIADB_PORT=3306
-MARIADB_ROOT_PASSWORD=root
+`#########################  
+APP_CODE_PATH_HOST=../laravel-api/  
+#########################  
+MARIADB_VERSION=latest  
+MARIADB_DATABASE=default  
+MARIADB_USER=default  
+MARIADB_PASSWORD=secret  
+MARIADB_PORT=3306  
+MARIADB_ROOT_PASSWORD=root  
 #########################`
 
 Levantar nginx y mariadb de laradock
