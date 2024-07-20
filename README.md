@@ -10,7 +10,7 @@ git clone https://github.com/DiFo92/laravel-vue-materiales-proyectos.git
 
 cd laravel-vue-materiales-proyectos
 
-### Configuración Backend
+### Configuración Back
 
 3. Descargar laradock para el ambiente back:
 
@@ -43,7 +43,7 @@ docker-compose up nginx mariadb
 - php artisan migrate
 - php artisan db:seed
 
-### Configuración Backend
+### Configuración Front
 
 1. desplazarse al directorio del ambiente Front
 
