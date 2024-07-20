@@ -2,27 +2,28 @@
 
 ## Para usar de manera local:
 
-1. Descargar este repositorio:
+Descargar este repositorio:
 
-git clone https://github.com/DiFo92/laravel-vue-materiales-proyectos.git
+`git clone https://github.com/DiFo92/laravel-vue-materiales-proyectos.git`
 
-2. Cambiar a directorio del proyecto
+Cambiar a directorio del proyecto
 
-cd laravel-vue-materiales-proyectos
+`cd laravel-vue-materiales-proyectos`
 
-### Configuración Back
+## Configuración Back
 
-3. Descargar laradock para el ambiente back:
+Descargar laradock para el ambiente back:
 
-git clone https://github.com/laradock/laradock.git
+`git clone https://github.com/laradock/laradock.git`
 
-4. Crear .env en laradock para laravel
-   cd laradock
-   cp .env.example .env
+Crear .env en laradock para laravel
 
-5. Editar las siguientes variables de entorno de laradock para que se conecte a base de datos mysql:
+`cd laradock`
+`cp .env.example .env`
 
-#########################
+Editar las siguientes variables de entorno de laradock para que se conecte a base de datos mysql:
+
+`#########################
 APP_CODE_PATH_HOST=../laravel-api/
 #########################
 MARIADB_VERSION=latest
@@ -31,17 +32,17 @@ MARIADB_USER=default
 MARIADB_PASSWORD=secret
 MARIADB_PORT=3306
 MARIADB_ROOT_PASSWORD=root
-#########################
+#########################`
 
-6. Levantar nginx y mariadb de laradock
+Levantar nginx y mariadb de laradock
 
-docker-compose up nginx mariadb
+`docker-compose up nginx mariadb`
 
-7. Ingresar al contendor y ejecutar migraciones y seeders
+Ingresar al contendor y ejecutar migraciones y seeders
 
-- docker exec -it laradock-workspace-1 bash
-- php artisan migrate
-- php artisan db:seed
+- `docker exec -it laradock-workspace-1 bash`
+- `php artisan migrate`
+- `php artisan db:seed`
 
 ## Configuración Front
 
