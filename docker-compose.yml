@@ -1,0 +1,63 @@
+version: "3.8"
+
+services:
+  laravel:
+    build:
+      context: ./laravel-api
+      dockerfile: Dockerfile
+    container_name: laravel-app
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./laravel-api:/var/www
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - APP_KEY=base64:your_app_key_here
+      - DB_CONNECTION=mysql
+      - DB_HOST=mariadb
+      - DB_PORT=3306
+      - DB_DATABASE=db-materiales-proyectos
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+    depends_on:
+      - mariadb
+    command: >
+      sh -c "
+        while ! nc -z mariadb 3306; do
+          sleep 1;
+        done;
+        php artisan migrate --force &&
+        php artisan db:seed --force &&
+        php-fpm
+      "
+
+  mariadb:
+    image: mariadb:10.5.25
+    container_name: mariadb
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db-materiales-proyectos
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    volumes:
+      - mariadb-data:/var/lib/mysql
+
+  # vuetify:
+  #   build:
+  #     context: ./vuetify-idrd
+  #     dockerfile: Dockerfile
+  #   container_name: vuetify-app
+  #   restart: unless-stopped
+  #   ports:
+  #     - "8080:8080"
+  #   volumes:
+  #     - ./vuetify-idrd:/app
+  #   command: yarn serve
+
+volumes:
+  mariadb-data:
