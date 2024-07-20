@@ -14,9 +14,10 @@
         </template>
       </v-data-table>
       </v-col>
-      <v-col :cols="12">
-        <br>
-        <br>
+      <v-col :cols="3">
+        <v-btn color="warning" @click="goPage(``)">Inicio</v-btn>
+      </v-col>
+      <v-col :cols="6">
         <v-btn color="success" @click="downloadPDF">Descargar reporte PDF</v-btn>
       </v-col>
      </v-row>
@@ -156,6 +157,9 @@
 
         // Descargar el PDF con el nombre 'ejemplo.pdf'
         doc.save('reporte-materiales-proyectos.pdf');
+      },
+      goPage(page){
+        this.$router.push(`/${page}`);
       }
     },
   mounted() {

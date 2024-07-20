@@ -47,9 +47,10 @@
       </v-col>
     </v-row>
     <v-row>
+      <v-col :cols="3">
+        <v-btn color="warning" @click="goPage(``)">Inicio</v-btn>
+      </v-col>
       <v-col>
-        <br>
-        <br>
         <v-btn color="primary" @click="openDialog">Agregar Material</v-btn>
       </v-col>
     </v-row>
@@ -116,7 +117,10 @@ export default {
     getTextDetailParameter(id){
       const detailParameter = this.itemsUnd.find(item => item.id == id);
       return detailParameter ? detailParameter.descripcion : '';
-    }
+    },
+    goPage(page){
+        this.$router.push(`/${page}`);
+      }
   },
   mounted() {
     this.fetchDetailParameter();

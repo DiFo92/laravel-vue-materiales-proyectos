@@ -55,9 +55,10 @@
       </v-col>
     </v-row>
     <v-row>
+      <v-col :cols="3">
+        <v-btn color="warning" @click="goPage(``)">Inicio</v-btn>
+      </v-col>
       <v-col>
-        <br>
-        <br>
         <v-btn color="primary" @click="openDialog">Agregar Proyecto</v-btn>
       </v-col>
     </v-row>
@@ -132,7 +133,10 @@ export default {
     getTextCiudad(id){
       const detailParameter = this.itemsCiudad.find(item => item.id == id);
       return detailParameter ? detailParameter.descripcion : '';
-    }
+    },
+    goPage(page){
+        this.$router.push(`/${page}`);
+      }
   },
   mounted() {
     this.fetchProyectos();
