@@ -2,7 +2,6 @@
   <v-container>
     <v-row>
       <v-col>
-        <v-btn color="primary" @click="openDialog">Agregar Proyecto</v-btn>
         <v-dialog v-model="dialog" max-width="500px">
           <v-card>
             <v-card-title>
@@ -55,6 +54,14 @@
         </v-data-table>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col :cols="3">
+        <v-btn color="warning" @click="goPage(``)">Inicio</v-btn>
+      </v-col>
+      <v-col>
+        <v-btn color="primary" @click="openDialog">Agregar Proyecto</v-btn>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 <script>
@@ -68,10 +75,10 @@ export default {
       itemsDepartamento: [],
       itemsCiudad: [],
       headers: [
-        { text: 'Nombre', value: 'nombre' },
-        { text: 'Departamento', value: 'departamento_id' },
-        { text: 'Ciudad', value: 'ciudad_id' },
-        { text: 'Acciones', value: 'actions', sortable: false }
+        { title: 'Nombre', value: 'nombre' },
+        { title: 'Departamento', value: 'departamento_id' },
+        { title: 'Ciudad', value: 'ciudad_id' },
+        { title: 'Acciones', value: 'actions', sortable: false }
       ],
       formData: {
         id: null,
@@ -126,7 +133,10 @@ export default {
     getTextCiudad(id){
       const detailParameter = this.itemsCiudad.find(item => item.id == id);
       return detailParameter ? detailParameter.descripcion : '';
-    }
+    },
+    goPage(page){
+        this.$router.push(`/${page}`);
+      }
   },
   mounted() {
     this.fetchProyectos();

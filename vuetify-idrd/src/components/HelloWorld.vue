@@ -4,67 +4,29 @@
       class="align-centerfill-height mx-auto"
       max-width="900"
     >
-      <v-img
-        class="mb-4"
-        height="150"
-        src="@/assets/logo.png"
-      />
-
       <div class="text-center">
-        <div class="text-body-2 font-weight-light mb-n1">Welcome to</div>
+        <div class="text-body-2 font-weight-light mb-n1">Prueba técnica</div>
 
-        <h1 class="text-h2 font-weight-bold">Vuetify</h1>
+        <h1 class="text-h2 font-weight-bold">IDRD</h1>
       </div>
 
       <div class="py-4" />
 
       <v-row>
-        <v-col cols="12">
-          <v-card
-            class="py-4"
-            color="surface-variant"
-            image="https://cdn.vuetifyjs.com/docs/images/one/create/feature.png"
-            prepend-icon="mdi-rocket-launch-outline"
-            rounded="lg"
-            variant="outlined"
-          >
-            <template #image>
-              <v-img position="top right" />
-            </template>
 
-            <template #title>
-              <h2 class="text-h5 font-weight-bold">Get started</h2>
-            </template>
-
-            <template #subtitle>
-              <div class="text-subtitle-1">
-                Replace this page by removing <v-kbd>{{ `<HelloWorld />` }}</v-kbd> in <v-kbd>pages/index.vue</v-kbd>.
-              </div>
-            </template>
-
-            <v-overlay
-              opacity=".12"
-              scrim="primary"
-              contained
-              model-value
-              persistent
-            />
-          </v-card>
-        </v-col>
 
         <v-col cols="6">
           <v-card
             append-icon="mdi-open-in-new"
             class="py-4"
             color="surface-variant"
-            href="https://vuetifyjs.com/"
             prepend-icon="mdi-text-box-outline"
             rel="noopener noreferrer"
             rounded="lg"
-            subtitle="Learn about all things Vuetify in our documentation."
-            target="_blank"
-            title="Documentation"
+            subtitle="Gestión de los materiales disponibles"
+            title="Materiales"
             variant="text"
+            @click="goPage(`materials`)"
           >
             <v-overlay
               opacity=".06"
@@ -81,14 +43,13 @@
             append-icon="mdi-open-in-new"
             class="py-4"
             color="surface-variant"
-            href="https://vuetifyjs.com/introduction/why-vuetify/#feature-guides"
             prepend-icon="mdi-star-circle-outline"
             rel="noopener noreferrer"
             rounded="lg"
-            subtitle="Explore available framework Features."
-            target="_blank"
-            title="Features"
+            subtitle="Gestione los proyectos."
+            title="Proyectos"
             variant="text"
+            @click="goPage(`proyects`)"
           >
             <v-overlay
               opacity=".06"
@@ -105,14 +66,14 @@
             append-icon="mdi-open-in-new"
             class="py-4"
             color="surface-variant"
-            href="https://vuetifyjs.com/components/all"
+            to="pages/materials"
             prepend-icon="mdi-widgets-outline"
             rel="noopener noreferrer"
             rounded="lg"
-            subtitle="Discover components in the API Explorer."
-            target="_blank"
-            title="Components"
+            subtitle="Gestione los materiales utilizados en cada proyecto"
+            title="Materiales proyectos"
             variant="text"
+            @click="goPage(`proyects-materials`)"
           >
             <v-overlay
               opacity=".06"
@@ -129,14 +90,14 @@
             append-icon="mdi-open-in-new"
             class="py-4"
             color="surface-variant"
-            href="https://discord.vuetifyjs.com"
-            prepend-icon="mdi-account-group-outline"
+            to="pages/report"
+            prepend-icon="mdi-widgets-outline"
             rel="noopener noreferrer"
             rounded="lg"
-            subtitle="Connect with Vuetify developers."
-            target="_blank"
-            title="Community"
+            subtitle="Reporte de los materiales usados en cada proyecto y sus costos totales"
+            title="Reporte"
             variant="text"
+            @click="goPage(`report`)"
           >
             <v-overlay
               opacity=".06"
@@ -147,11 +108,18 @@
             />
           </v-card>
         </v-col>
+
       </v-row>
     </v-responsive>
   </v-container>
 </template>
 
-<script setup>
-  //
+<script>
+  export default{
+    methods:{
+      goPage(page){
+        this.$router.push(`/${page}`);
+      }
+    }
+  }
 </script>
