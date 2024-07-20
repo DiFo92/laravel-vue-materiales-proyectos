@@ -68,10 +68,10 @@ export default {
       itemsDepartamento: [],
       itemsCiudad: [],
       headers: [
-        { text: 'Nombre', value: 'nombre' },
-        { text: 'Departamento', value: 'departamento_id' },
-        { text: 'Ciudad', value: 'ciudad_id' },
-        { text: 'Acciones', value: 'actions', sortable: false }
+        { title: 'Nombre', value: 'nombre' },
+        { title: 'Departamento', value: 'departamento_id' },
+        { title: 'Ciudad', value: 'ciudad_id' },
+        { title: 'Acciones', value: 'actions', sortable: false }
       ],
       formData: {
         id: null,
