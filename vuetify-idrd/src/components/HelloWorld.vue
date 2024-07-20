@@ -20,13 +20,13 @@
             append-icon="mdi-open-in-new"
             class="py-4"
             color="surface-variant"
-            href="https://vuetifyjs.com/"
             prepend-icon="mdi-text-box-outline"
             rel="noopener noreferrer"
             rounded="lg"
             subtitle="Gestión de los materiales disponibles"
             title="Materiales"
             variant="text"
+            @click="goPage(`materials`)"
           >
             <v-overlay
               opacity=".06"
@@ -43,14 +43,13 @@
             append-icon="mdi-open-in-new"
             class="py-4"
             color="surface-variant"
-            href="https://vuetifyjs.com/introduction/why-vuetify/#feature-guides"
             prepend-icon="mdi-star-circle-outline"
             rel="noopener noreferrer"
             rounded="lg"
             subtitle="Gestione los proyectos."
-            target="_blank"
             title="Proyectos"
             variant="text"
+            @click="goPage(`proyects`)"
           >
             <v-overlay
               opacity=".06"
@@ -72,9 +71,9 @@
             rel="noopener noreferrer"
             rounded="lg"
             subtitle="Gestione los materiales utilizados en cada proyecto"
-            target="_blank"
             title="Materiales proyectos"
             variant="text"
+            @click="goPage(`proyects-materials`)"
           >
             <v-overlay
               opacity=".06"
@@ -91,6 +90,12 @@
   </v-container>
 </template>
 
-<script setup>
-  //
+<script>
+  export default{
+    methods:{
+      goPage(page){
+        this.$router.push(`/${page}`);
+      }
+    }
+  }
 </script>
