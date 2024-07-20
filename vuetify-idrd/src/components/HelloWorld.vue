@@ -61,7 +61,7 @@
           </v-card>
         </v-col>
 
-        <v-col cols="12">
+        <v-col cols="6">
           <v-card
             append-icon="mdi-open-in-new"
             class="py-4"
@@ -74,6 +74,30 @@
             title="Materiales proyectos"
             variant="text"
             @click="goPage(`proyects-materials`)"
+          >
+            <v-overlay
+              opacity=".06"
+              scrim="primary"
+              contained
+              model-value
+              persistent
+            />
+          </v-card>
+        </v-col>
+
+        <v-col cols="6">
+          <v-card
+            append-icon="mdi-open-in-new"
+            class="py-4"
+            color="surface-variant"
+            to="pages/report"
+            prepend-icon="mdi-widgets-outline"
+            rel="noopener noreferrer"
+            rounded="lg"
+            subtitle="Reporte de los materiales usados en cada proyecto y sus costos totales"
+            title="Reporte"
+            variant="text"
+            @click="goPage(`report`)"
           >
             <v-overlay
               opacity=".06"

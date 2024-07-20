@@ -2,11 +2,6 @@
   <v-container>
     <v-row>
       <v-col>
-        <v-btn color="primary" @click="openDialog">Agregar Proyecto</v-btn>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
         <v-dialog v-model="dialog" max-width="500px">
           <v-card>
             <v-card-title>
@@ -57,6 +52,13 @@
             <v-icon small @click="deleteProyecto(item.id)">mdi-delete</v-icon>
           </template>
         </v-data-table>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <br>
+        <br>
+        <v-btn color="primary" @click="openDialog">Agregar Proyecto</v-btn>
       </v-col>
     </v-row>
   </v-container>
