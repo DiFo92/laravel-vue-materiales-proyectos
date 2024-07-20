@@ -37,6 +37,12 @@ MARIADB_ROOT_PASSWORD=root
 
 docker-compose up nginx mariadb
 
+7. Ingresar al contendor y ejecutar migraciones y seeders
+
+- docker exec -it laradock-workspace-1 bash
+- php artisan migrate
+- php artisan db:seed
+
 ### Configuración Backend
 
 1. desplazarse al directorio del ambiente Front
