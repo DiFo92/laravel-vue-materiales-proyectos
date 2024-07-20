@@ -34,7 +34,7 @@ services:
       "
 
   mariadb:
-    image: mariadb:10.5
+    image: mariadb:10.5.25
     container_name: mariadb
     restart: unless-stopped
     ports:
@@ -47,17 +47,17 @@ services:
     volumes:
       - mariadb-data:/var/lib/mysql
 
-  vuetify:
-    build:
-      context: ./vuetify-idrd
-      dockerfile: Dockerfile
-    container_name: vuetify-app
-    restart: unless-stopped
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./vuetify-idrd:/app
-    command: yarn serve
+  # vuetify:
+  #   build:
+  #     context: ./vuetify-idrd
+  #     dockerfile: Dockerfile
+  #   container_name: vuetify-app
+  #   restart: unless-stopped
+  #   ports:
+  #     - "8080:8080"
+  #   volumes:
+  #     - ./vuetify-idrd:/app
+  #   command: yarn serve
 
 volumes:
   mariadb-data:
