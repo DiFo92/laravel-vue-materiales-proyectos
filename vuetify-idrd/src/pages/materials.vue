@@ -13,6 +13,13 @@
                 <v-text-field v-model="formData.codigo" label="Código" required></v-text-field>
                 <v-text-field v-model="formData.descripcion" label="Descripción" required></v-text-field>
                 <v-text-field v-model="formData.precio" label="Precio" required></v-text-field>
+                <v-select
+                label="Unidad"
+                :items="itemsUnd"
+                item-title="descripcion"
+                item-value="id"
+                v-model="formData.unidad_id"
+                ></v-select>
               </v-form>
             </v-card-text>
             <v-card-actions>
@@ -29,6 +36,9 @@
               <v-divider class="mx-4" inset vertical></v-divider>
               <v-spacer></v-spacer>
             </v-toolbar>
+          </template>
+          <template v-slot:item.unidad_id="{ item }">
+            {{ getTextDetailParameter(item.unidad_id) }}
           </template>
           <template v-slot:item.actions="{ item }">
             <v-icon small class="mr-2" @click="editMaterial(item)">mdi-pencil</v-icon>
@@ -47,17 +57,20 @@ export default {
     return {
       dialog: false,
       materials: [],
+      itemsUnd: [],
       headers: [
-        { text: 'Código', value: 'codigo' },
-        { text: 'Descripción', value: 'descripcion' },
-        { text: 'Precio', value: 'precio' },
-        { text: 'Acciones', value: 'actions', sortable: false }
+        { title: 'Código', value: 'codigo' },
+        { title: 'Descripción', value: 'descripcion' },
+        { title: 'Precio', value: 'precio' },
+        { title: 'Unidad', value: 'unidad_id' },
+        { title: 'Acciones', value: 'actions', sortable: false }
       ],
       formData: {
         id: null,
         codigo: '',
         descripcion: '',
-        precio: ''
+        precio: '',
+        unidad_id: null
       }
     }
   },
@@ -67,6 +80,11 @@ export default {
       const response = await axios.get('/materials');
       console.log(response.data)
       this.materials = response.data.data;
+    },
+    async fetchDetailParameter(parameter = 3) {
+      const response = await axios.get(`parametro-detalle/${parameter}`);
+      console.log(response.data)
+      this.itemsUnd = response.data
     },
     openDialog() {
       this.formData = { id: null, name: '', quantity: '' };
@@ -88,9 +106,14 @@ export default {
     async deleteMaterial(id) {
       await axios.delete(`/materials/${id}`);
       this.fetchMaterials();
+    },
+    getTextDetailParameter(id){
+      const detailParameter = this.itemsUnd.find(item => item.id == id);
+      return detailParameter ? detailParameter.descripcion : '';
     }
   },
   mounted() {
+    this.fetchDetailParameter();
     this.fetchMaterials();
   }
 }
