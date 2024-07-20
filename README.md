@@ -43,16 +43,25 @@ docker-compose up nginx mariadb
 - php artisan migrate
 - php artisan db:seed
 
-### Configuración Front
+## Configuración Front
 
-1. desplazarse al directorio del ambiente Front
+### desplazarse al directorio del ambiente Front
 
-cd vuetify-idrd
+_cd vuetify-idrd_
 
-2. Tener instalado **yarn** en la maquina
+### Tener instalado **yarn** en la maquina
 
 yarn install
 
-2. iniciar el ambiente de desarrollo de vuetify usando yarn
+### Instalar librerias **axios y jspdf**
 
-yarn dev
+---
+
+- yarn add axios
+- `yarn add jspdf`
+
+---
+
+### iniciar el ambiente de desarrollo de vuetify usando yarn
+
+`yarn dev`
