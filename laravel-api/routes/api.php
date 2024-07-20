@@ -16,3 +16,4 @@ Route::apiResource('/proyects',ProyectoController::class);
 Route::apiResource('/proyects-materials',ProyectoMaterialController::class);
 
 Route::get('/parametro-detalle/{id}', [ParametroDetalleController::class, 'getByParametro']);
+Route::get('/report', [ParametroDetalleController::class, 'getReport']);
