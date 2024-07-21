@@ -1,8 +1,10 @@
-# laravel-vue-materiales-proyectos
+# Prueba Técnica Diego - Forero
+
+Ejecutar las sentencias de código en **_terminal bash_**.
 
 ## Para usar de manera local:
 
-Descargar este repositorio:
+Clonar el repositorio:
 
 `git clone https://github.com/DiFo92/laravel-vue-materiales-proyectos.git`
 
@@ -18,21 +20,21 @@ Descargar laradock para el ambiente back:
 
 Crear .env en laradock para laravel
 
-`cd laradock`
+`cd laradock`  
 `cp .env.example .env`
 
-Editar las siguientes variables de entorno de laradock para que se conecte a base de datos mysql:
+#### Editar las siguientes variables de entorno de laradock para que se conecte a base de datos mysql:
 
-`#########################  
-APP_CODE_PATH_HOST=../laravel-api/  
-#########################  
-MARIADB_VERSION=latest  
-MARIADB_DATABASE=default  
-MARIADB_USER=default  
-MARIADB_PASSWORD=secret  
-MARIADB_PORT=3306  
-MARIADB_ROOT_PASSWORD=root  
-#########################`
+`APP_CODE_PATH_HOST=../laravel-api/`  
+...  
+`MARIADB_VERSION=latest`  
+`MARIADB_DATABASE=default`  
+`MARIADB_USER=default`  
+`MARIADB_PASSWORD=secret`  
+`MARIADB_PORT=3306`  
+`MARIADB_ROOT_PASSWORD=root`
+
+---
 
 Levantar nginx y mariadb de laradock
 
@@ -40,9 +42,10 @@ Levantar nginx y mariadb de laradock
 
 Ingresar al contendor y ejecutar migraciones y seeders
 
-- `docker exec -it laradock-workspace-1 bash`
-- `php artisan migrate`
-- `php artisan db:seed`
+> `docker exec -it laradock-workspace-1 bash`
+>
+> - `php artisan migrate`
+> - `php artisan db:seed`
 
 ## Configuración Front
 
@@ -50,19 +53,19 @@ Ingresar al contendor y ejecutar migraciones y seeders
 
 _cd vuetify-idrd_
 
-### Tener instalado **yarn** en la maquina
+### Instalar **yarn**
 
-yarn install
+`yarn install`
 
 ### Instalar librerias **axios y jspdf**
 
 ---
 
-- yarn add axios
+- `yarn add axios`
 - `yarn add jspdf`
 
 ---
 
-### iniciar el ambiente de desarrollo de vuetify usando yarn
+### niciar el ambiente de desarrollo de vuetify usando
 
 `yarn dev`
